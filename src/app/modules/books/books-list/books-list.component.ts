@@ -4,6 +4,7 @@ import { BooksService } from '../services/books.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/includes/services/toast.service';
 
 @Component({
     selector: 'app-books-list',
@@ -22,7 +23,8 @@ export class BooksListComponent implements OnInit {
 
     constructor(
         private bookService: BooksService,
-        private router: Router
+        private router: Router,
+        private toast: ToastService
     ) { 
         this.searchEnter.pipe(debounceTime(1000),distinctUntilChanged()).subscribe(model => {
             this.searchKey = model;
@@ -41,6 +43,9 @@ export class BooksListComponent implements OnInit {
                 case 0:
                     this.books = res?.data.data;
                     this.pagination = res?.data.links;
+
+                    if(this.books?.length == 0)
+                        this.toast.info('No Books Available');
                     break;
             }
         });
@@ -84,6 +89,9 @@ export class BooksListComponent implements OnInit {
                 case 0:
                     this.books = res?.data.data;
                     this.pagination = res?.data.links;
+
+                    if(this.books?.length == 0)
+                        this.toast.info('No Books Available');
                     break;
             }
         });
