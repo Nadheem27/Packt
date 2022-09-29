@@ -1,0 +1,194 @@
+<main id="main" class="main p-3">
+
+    <div class="pagetitle d-flex justify-content-between p-3">
+        <div>
+            <h4>Add Book</h4>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a routerLink="{{appRoutes.admin.books.LIST}}" class="btn btn-outline-primary">Back</a>
+            <app-logout></app-logout>
+        </div>
+    </div>
+
+    <div class="card text-left mb-4">
+        <div class="card-body">
+            <form [formGroup]="addForm" (ngSubmit)="store()">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Title</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="title">
+                                <div *ngIf="feildInvalidCheck('title')" class="text-danger" style="font-size: 12px">
+                                    Title is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.title" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Author Name</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="authorName">
+                                <div *ngIf="feildInvalidCheck('authorName')" class="text-danger"
+                                    style="font-size: 12px">
+                                    Author Name is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.author_name" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Genre</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="genre">
+                                <div *ngIf="feildInvalidCheck('genre')" class="text-danger" style="font-size: 12px">
+                                    Genre is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.genre" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Description</span>
+                            </label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                                <div *ngIf="feildInvalidCheck('description')" class="text-danger" style="font-size: 12px">
+                                    Description is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.description" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">ISBN</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="isbn">
+                                <div *ngIf="feildInvalidCheck('isbn')" class="text-danger" style="font-size: 12px">
+                                    ISBN is required & should be in correct format
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.isbn" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Published Date</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" formControlName="publishedDate">
+                                <div *ngIf="feildInvalidCheck('publishedDate')" class="text-danger" style="font-size: 12px">
+                                    Published Date is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.published_date" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Publisher Name</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" formControlName="publisherName">
+                                <div *ngIf="feildInvalidCheck('publisherName')" class="text-danger" style="font-size: 12px">
+                                    Published Name is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.publisher_name" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row mb-4 form-group">
+                            <label class="col-md-4 mt-1 text-left">
+                                <span class="text-14">Image</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="file" class="form-control p-1" (change)="loadImage($event)">
+                                <a *ngIf="imageUrl != ''" href="javascript:void(0);" class="p-1"
+                                    (click)="openImage()"><span>View Image</span></a>
+                                <div *ngIf="feildInvalidCheck('image')" class="text-danger" style="font-size: 12px">
+                                    Image is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label for="picker1" class="col-md-4 mt-1 text-left"><span
+                                    class="text-14">Status</span></label>
+                            <div class="col-md-8 mt-2">
+                                <input type="radio" class="mr-2" formControlName="status" value="1"><span>Active</span>
+                                <input type="radio" class="ml-2" formControlName="status" value="0"><span
+                                    class="ml-2">Inactive</span>
+                                <div *ngIf="feildInvalidCheck('status')" class="text-danger" style="font-size: 12px">
+                                    Status is required
+                                </div>
+                                <ng-container *ngIf="validation">
+                                    <div *ngFor="let message of validationMessage?.status" class="text-danger"
+                                        style="font-size: 12px">
+                                        {{ message }}
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-0 d-flex justify-content-end">
+                    <div class="text-right">
+                        <button class="btn btn-primary ms-1">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <ng-template #imageModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="image-modal">Image</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="{{imageUrl}}" class="img-fluid rounded" />
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" (click)="modal.close('ok')">Close</button>
+        </div>
+    </ng-template>
+</main>

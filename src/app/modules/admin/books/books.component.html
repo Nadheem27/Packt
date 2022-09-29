@@ -1,0 +1,78 @@
+<main id="main" class="main p-3">    
+    <div class="pagetitle d-flex justify-content-between p-3">
+        <div>
+            <h4>Books List</h4>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a routerLink="{{appRoutes.admin.books.ADD}}" class="btn btn-outline-primary">Add</a>
+            <app-logout></app-logout>            
+        </div>
+
+    </div>
+
+    <section class="section">
+        <div class="row mb-4">
+            <div class="col-md-12 mb-3">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtOptions" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Author Name</th>
+                                        <th>ISBN</th>
+                                        <th>Published Date</th>
+                                        <th>Publisher</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let book of books">
+                                        <td (click)="openImageModal(book?.image)"><a class="cursor" href="javascript:void(0);">{{
+                                            book?.title }}</a></td>
+                                        <td>{{book?.author}}</td>
+                                        <td>{{book?.isbn}}</td>
+                                        <td>{{book?.date}}</td>
+                                        <td>{{book?.publisher}}</td>
+                                        <td>
+                                            <ng-container *ngIf="book?.status">
+                                                <span>Active</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="!book?.status">
+                                                <span>In Active</span>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <ng-container>
+                                                <a [routerLink]="[appRoutes.admin.books.EDIT, book?.id]"
+                                                    class="btn btn-outline-info btn-sm">Edit</a>
+                                                <a (click)="deleteBook(book?.id)"
+                                                    class="btn btn-outline-danger btn-sm">Delete</a>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <ng-template #imageModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="image-modal">Image</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="{{URL}}" class="img-fluid rounded"/>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" (click)="modal.close('ok')">Close</button>
+        </div>
+    </ng-template>
+</main>
